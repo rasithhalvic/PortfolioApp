@@ -1,7 +1,29 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Search, Briefcase, Radar, ArrowRightLeft, Building2, Activity, UploadCloud } from 'lucide-react';
+import { Search, Briefcase, Building2, Activity, UploadCloud } from 'lucide-react';
+
+// Reusable mini-components defined at the top
+function NavItem({ icon, text }: { icon: React.ReactNode, text: string }) {
+  return (
+    <div className="flex items-center px-6 py-2 text-gray-400 hover:text-white hover:bg-[#1C212D] cursor-pointer transition-colors">
+      <span className="mr-3">{icon}</span>
+      <span className="font-medium text-sm">{text}</span>
+    </div>
+  );
+}
+
+function TableRow({ symbol, price, change, vol, isPositive }: any) {
+  const color = isPositive === true ? 'text-green-500' : isPositive === false ? 'text-red-500' : 'text-gray-400';
+  return (
+    <tr className="hover:bg-[#1C212D] transition-colors group">
+      <td className="px-6 py-4 font-bold">{symbol}</td>
+      <td className="px-6 py-4 text-right">{price}</td>
+      <td className={`px-6 py-4 text-right ${color}`}>{change}</td>
+      <td className="px-6 py-4 text-right">{vol}</td>
+    </tr>
+  );
+}
 
 export default function Dashboard() {
   const [marketData, setMarketData] = useState([]);
@@ -14,7 +36,6 @@ export default function Dashboard() {
         const response = await fetch("./market_data.json");
         const data = await response.json();
         
-        // Handle variations in how CSE structures the JSON array
         const stockList = Array.isArray(data) ? data : data.reqGroupBySecurities || [];
         setMarketData(stockList);
         setIsLoading(false);
@@ -30,7 +51,7 @@ export default function Dashboard() {
     <div className="flex h-screen bg-[#0B0E14] text-white font-sans">
       
       {/* LEFT SIDEBAR */}
-      <aside className="w-64 bg-[#131722] border-r border-gray-800 flex flex-col hidden md:flex">
+      <aside className="w-64 bg-[#131722] border-r border-gray-800 flex-col hidden md:flex">
         <div className="p-6">
           <h1 className="text-2xl font-bold flex items-center gap-2">
             <span className="text-green-500">🐂</span> cbull
@@ -42,7 +63,6 @@ export default function Dashboard() {
             <p className="px-6 text-xs font-semibold text-gray-500 mb-2 uppercase">Start</p>
             <NavItem icon={<Briefcase size={18} />} text="My Portfolio" />
             <div className="px-6 py-2">
-               {/* CSV Upload Button */}
                <button className="w-full flex items-center justify-center gap-2 bg-green-900/30 text-green-500 border border-green-800 rounded px-2 py-1.5 text-xs hover:bg-green-900/50 transition">
                  <UploadCloud size={14} /> Import CDS (CSV)
                </button>
@@ -101,7 +121,6 @@ export default function Dashboard() {
                   <tr><td colSpan={4} className="px-6 py-4 text-center text-gray-500">No data found.</td></tr>
                 ) : (
                   marketData.map((stock: any, index: number) => {
-                    // Extract data based on CSE API format
                     const symbol = stock.symbol;
                     const price = stock.lastTradedPrice || stock.price || '0.00';
                     const change = stock.changePercentage || stock.percentageChange || '0.00';
@@ -126,27 +145,5 @@ export default function Dashboard() {
         </div>
       </main>
     </div>
-  );
-}
-
-// Reusable mini-components
-function NavItem({ icon, text }: { icon: React.ReactNode, text: string }) {
-  return (
-    <div className="flex items-center px-6 py-2 text-gray-400 hover:text-white hover:bg-[#1C212D] cursor-pointer transition-colors">
-      <span className="mr-3">{icon}</span>
-      <span className="font-medium text-sm">{text}</span>
-    </div>
-  );
-}
-
-function TableRow({ symbol, price, change, vol, isPositive }: any) {
-  const color = isPositive === true ? 'text-green-500' : isPositive === false ? 'text-red-500' : 'text-gray-400';
-  return (
-    <tr className="hover:bg-[#1C212D] transition-colors group">
-      <td className="px-6 py-4 font-bold">{symbol}</td>
-      <td className="px-6 py-4 text-right">{price}</td>
-      <td className={`px-6 py-4 text-right ${color}`}>{change}</td>
-      <td className="px-6 py-4 text-right">{vol}</td>
-    </tr>
   );
 }
