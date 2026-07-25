@@ -1,9 +1,8 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  // Tells Next.js to build a static HTML/JS site for GitHub Pages
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   output: 'export',
-  // Disables server-side image rendering
+  basePath: '/PortfolioApp',
+  assetPrefix: '/PortfolioApp/',
   images: {
     unoptimized: true,
   },
