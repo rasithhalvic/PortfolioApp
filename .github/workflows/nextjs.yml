@@ -33,7 +33,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: PortfolioApp/frontend
-        run: npm ci
+        run: npm install
 
       - name: Build with Next.js
         working-directory: PortfolioApp/frontend
