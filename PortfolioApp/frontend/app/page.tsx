@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Search, Briefcase, Building2, Activity, UploadCloud, LineChart, Database } from 'lucide-react';
+import { Search, Briefcase, Building2, Activity, UploadCloud, LineChart } from 'lucide-react';
 
 function NavItem({ icon, text, active, onClick }: { icon: React.ReactNode, text: string, active?: boolean, onClick?: () => void }) {
   return (
@@ -208,7 +208,6 @@ export default function Dashboard() {
 
                     {/* SVG Mock Chart for 5 Years */}
                     <div className="h-64 w-full flex items-end justify-between gap-1 pt-8 pb-2 relative">
-                      {/* Grid background lines */}
                       <div className="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-10">
                         <div className="border-b border-white w-full"></div>
                         <div className="border-b border-white w-full"></div>
@@ -258,4 +257,4 @@ export default function Dashboard() {
       </main>
     </div>
   );
-}'
+}
