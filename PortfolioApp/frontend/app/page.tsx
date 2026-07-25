@@ -53,8 +53,8 @@ export default function Dashboard() {
       {/* LEFT SIDEBAR */}
       <aside className="w-64 bg-[#131722] border-r border-gray-800 flex-col hidden md:flex">
         <div className="p-6">
-          <h1 className="text-2xl font-bold flex items-center gap-2">
-            <span className="text-green-500">🐂</span> cbull
+          <h1 className="text-xl font-bold flex items-center gap-2">
+            <span className="text-green-500">📈</span> Portfolio Tracker
           </h1>
         </div>
 
@@ -120,7 +120,7 @@ export default function Dashboard() {
                 ) : marketData.length === 0 ? (
                   <tr><td colSpan={4} className="px-6 py-4 text-center text-gray-500">No data found.</td></tr>
                 ) : (
-                  marketData.map((stock: any, index: number) => {
+                  marketData.log ? null : marketData.map((stock: any, index: number) => {
                     const symbol = stock.symbol;
                     const price = stock.lastTradedPrice || stock.price || '0.00';
                     const change = stock.changePercentage || stock.percentageChange || '0.00';
