@@ -32,17 +32,17 @@ jobs:
           static_site_generator: next
 
       - name: Install dependencies
-        working-directory: frontend
+        working-directory: PortfolioApp/frontend
         run: npm ci
 
       - name: Build with Next.js
-        working-directory: frontend
+        working-directory: PortfolioApp/frontend
         run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: frontend/out
+          path: PortfolioApp/frontend/out
 
   deploy:
     environment:
